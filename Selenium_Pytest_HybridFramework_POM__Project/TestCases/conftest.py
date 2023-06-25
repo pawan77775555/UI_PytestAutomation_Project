@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.edge.service import Service as EdgeService
-#from webdriver_manager.chrome import ChromeDriverManager
-#from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 import pytest
 
 driver = None
@@ -34,12 +34,11 @@ def chrome_driver_setup(Headless):
     BrowserSetting.add_argument('--start-maximized')
     BrowserSetting.add_argument('--disable-notifications')
     BrowserSetting.add_argument('--ignore-certificate-errors')
-    serv_obj = ChromeService(executable_path="Selenium_Pytest_HybridFramework_POM__Project/Drivers/chromedriver.exe")
     if Headless == 'true':
         BrowserSetting.add_argument('--headless')
-        Webdriver = webdriver.Chrome(service=serv_obj, options=BrowserSetting)
+        Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
     else:
-        Webdriver = webdriver.Chrome(service=serv_obj, options=BrowserSetting)
+        Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
     return Webdriver
 
 
@@ -52,12 +51,11 @@ def edge_driver_setup(Headless):
     BrowserSetting.add_argument('--disable-notifications')
     BrowserSetting.add_argument('--ignore-certificate-errors')
     BrowserSetting.add_argument('--remote-allow-origins=*')
-    serv_obj = EdgeService(executable_path="Selenium_Pytest_HybridFramework_POM__Project/Drivers/msedgedriver.exe")
     if Headless == 'true':
         BrowserSetting.add_argument('--headless')
-        Webdriver = webdriver.Edge(service=serv_obj, options=BrowserSetting)
+        Webdriver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=BrowserSetting)
     else:
-        Webdriver = webdriver.Edge(service=serv_obj, options=BrowserSetting)
+        Webdriver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=BrowserSetting)
     return Webdriver
 
 
@@ -93,3 +91,7 @@ def pytest_runtest_makereport(item):
 
 def _capture_screenshot(name):
     driver.get_screenshot_as_file(name)
+
+
+def pytest_html_report_title(report):
+    report.title = "Automation Report"

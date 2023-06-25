@@ -1,7 +1,6 @@
 import inspect
 import logging
-#import openpyxl
-#from openpyxl import load_workbook
+from openpyxl import load_workbook
 import csv
 
 
