@@ -1,0 +1,7 @@
+""" Add these steps before test_search_hotel method in test_searchflights depend upon choice between excel and json """
+
+""" Run using data from excel """
+@data(*Utilities.ExcelTestData(r"C:\Users\PAWAN\Selenium_Pytest_HybridFramework(POM)_Project\TestData\OyoRoomBookAutomation.xlsx"))
+@unpack
+""" Run using data from json file """
+@file_data('../TestData/TestData.json')

@@ -1,0 +1,22 @@
+{
+  "test1":
+  {
+    "title" : "OYO: India's Best Online Hotel Booking Site for Sanitised Stays",
+    "city" : "Pune",
+    "area" : "Hinjewadi",
+    "from_date" : "8",
+    "to_date" : "15",
+    "sort" :  "Price Low to High"
+
+  },
+  "test2":
+  {
+    "title" : "OYO: India's Best Online Hotel Booking Site for Sanitised Stays",
+    "city" : "Nagpur",
+    "area" : "Nagpur",
+    "from_date" : "8",
+    "to_date" : "15",
+    "sort" : "Price Low to High"
+
+  }
+}
