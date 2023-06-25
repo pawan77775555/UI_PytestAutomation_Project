@@ -7,4 +7,4 @@ pip install jsonpath
 pip install openpyxl
 pip install pytest-xdist
 pip install pytest-html
-pip install webdriver-manager
+pip install webdriver-manager --user
