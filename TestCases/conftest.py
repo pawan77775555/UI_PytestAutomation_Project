@@ -36,9 +36,11 @@ def chrome_driver_setup(Headless):
     BrowserSetting.add_argument('--ignore-certificate-errors')
     if Headless == 'true':
         BrowserSetting.add_argument('--headless')
-        Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
+        #Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
+        Webdriver = webdriver.Chrome(executable_path="UI_PytestAutomation_Project/Drivers/chromedriver.exe")
     else:
-        Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
+        #Webdriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=BrowserSetting)
+        Webdriver = webdriver.Chrome(executable_path="UI_PytestAutomation_Project/Drivers/chromedriver.exe")
     return Webdriver
 
 
@@ -66,32 +68,3 @@ def pytest_addoption(parser):
     parser.addoption('--browser', action='store', default='chrome')
     parser.addoption('--headless', action='store', default='false')
 
-
-""" Attach Screenshot in Reports """
-
-
-@pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item):
-    pytest_html = item.config.pluginmanager.getplugin('html')
-    outcome = yield
-    report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
-
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.skipped and xfail) or (report.failed and not xfail):
-            file_name = report.nodeid.replace("::", "_")+".png"
-            _capture_screenshot(file_name)
-            if file_name:
-                html = '<div><img src="%s" alt="screenshot" style="width:600px;height:228px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>'%file_name
-                extra.append(pytest_html.extras.html(html))
-        report.extra = extra
-
-
-def _capture_screenshot(name):
-    driver.get_screenshot_as_file(name)
-
-
-def pytest_html_report_title(report):
-    report.title = "Automation Report"
