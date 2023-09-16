@@ -67,4 +67,7 @@ def edge_driver_setup(Headless):
 def pytest_addoption(parser):
     parser.addoption('--browser', action='store', default='chrome')
     parser.addoption('--headless', action='store', default='false')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56cbcdf465131b744be1dc28ed483f21e26a7884
